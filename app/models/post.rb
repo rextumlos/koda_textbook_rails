@@ -8,7 +8,8 @@ class Post < ApplicationRecord
   has_many :post_category_ships
   has_many :categories, through: :post_category_ships
 
-  # Overrides the existing destroy method from controller
+  # Overrides the existing destroy
+  # method from controller
   def destroy
     update(deleted_at: Time.now)
   end

@@ -1,24 +1,56 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>App</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>App</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+</head>
 
-  <body>
-    <% if flash[:notice] %>
-      <p class="notice"><%= notice %></p>
-    <% end %>
+<body>
+<% if flash[:notice] %>
+  <p class="notice"><%= notice %></p>
+<% end %>
 
-    <% if flash[:alert] %>
-      <p class="alert"><%= alert %></p>
-    <% end %>
+<% if flash[:alert] %>
+  <p class="alert"><%= alert %></p>
+<% end %>
 
-    <%= yield %>
-  </body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <%= link_to 'KODACAMP', root_path, class: 'navbar-brand' %>
+
+    <div class="collapse navbar-collapse" id="links">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to 'Home', root_path, class: "nav-link #{'active' if controller_name == 'welcome' && action_name == 'index'}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'About', about_path, class: "nav-link #{'active' if controller_name == 'welcome' && action_name == 'about'}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Contact', contact_path, class: "nav-link #{'active' if controller_name == 'welcome' && action_name == 'contact'}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Posts', posts_path, class: "nav-link #{'active' if controller_name == 'posts'}" %>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+
+<div class="container">
+  <%= yield %>
+</div>
+
+</body>
 </html>
