@@ -16,6 +16,7 @@ a {
   &:hover {
     border-bottom: 1px solid black;
   }
+
   border-bottom: 1px solid transparent;
   transition: border-bottom .5s ease;
 }
@@ -23,3 +24,18 @@ a {
 .active {
   border-bottom: 1px solid black;
 }
+
+#filter_form {
+  width: 100%;
+
+  .main_filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+  }
+}
+
+
+

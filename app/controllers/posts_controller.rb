@@ -3,8 +3,29 @@ class PostsController < ApplicationController
 
   def index
     # Getting all posts, /posts
-    # @posts = Post.all
+
     @posts = Post.includes(:categories).all
+    @categories = Category.all
+
+    category_names =  params.select { |k, v| v == "1"}.keys
+
+    if params[:sort].present?
+      if params[:sort] == 'title'
+        sort = { params[:sort].parameterize.to_sym => :asc }
+      else
+        sort = { params[:sort].parameterize.to_sym => :desc }
+      end
+      @posts = @posts.order(sort)
+    end
+
+    @posts = @posts.where(categories: { name: category_names}) if category_names.any?
+
+    # start_date = '2023-09-01'
+    # end_date = '2023-09-29'
+    # @posts = Post.all.order(created_at: :desc)
+    #                   .where(created_at: start_date..end_date)
+
+    # @posts = Post.all
   end
 
   def new

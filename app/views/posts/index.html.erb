@@ -1,26 +1,102 @@
-<h1>Post List</h1>
+<header class = "m-2 d-flex flex-row justify-content-between align-items-center">
+  <h1>Post List</h1>
+  <%= link_to 'Create New Post', new_post_path, class: 'btn btn-primary h-100' %>
+</header>
 
-<table>
-  <thead>
-  <td>title</td>
-  <td>content</td>
-  <td>category</td>
-  <td>action</td>
-  </thead>
+
+
+<%= form_tag posts_path, method: "get", id: "filter_form", class: "card mb-3", data: { turbo: false } do %>
+  <div class="main_filter">
+    <div>
+      <p>Sort by: </p>
+      <div class="d-flex flex-row">
+        <div class="pe-2">
+          <%= radio_button_tag :sort, :title, params[:sort] == "title" %>
+          <%= label_tag "Title" %>
+        </div>
+        <div>
+          <%= radio_button_tag :sort, :created_at, params[:sort] == "created_at" %>
+          <%= label_tag "Recent" %>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p>Category: </p>
+      <div id="category_filter" class="d-flex flex-row">
+        <% @categories.each do |category| %>
+          <div class="pe-2">
+            <%= check_box_tag category.name, "1", params[category.name.to_sym] == "1" %>
+            <%= label_tag category.name %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%= submit_tag "Filter", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+
+<div class="">
   <% @posts.each do |post| %>
-    <tr>
-      <td><%= post.title %></td>
-      <td><%= post.content %></td>
-      <td><%= post.categories.pluck(:name).join(',') %></td>
-      <td>
-        <%= link_to 'Show', post_path(post) %>
-        <%= link_to 'Edit', edit_post_path(post) %>
-        <%= button_to 'Delete', post_path(post), method: :delete %>
-        <%= link_to 'Comments', post_comments_path(post) %>
-        <%= link_to 'New Comment', new_post_comment_path(post) %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+    <div class="card mb-3">
+      <div class="card-header d-flex flex-row justify-content-between">
+        <div>
+          <p><%= post.created_at.strftime('%a, %B %d, %Y | %I:%M %p') %></p>
+        </div>
+        <div>
+          <% post.categories.pluck(:name).each do |category| %>
+            <span class="badge bg-secondary"><%= category %></span>
+          <% end %>
+        </div>
 
-<%= link_to 'New', new_post_path %>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><%= post.title %></h5>
+        <p class="card-text"><%= post.content %></p>
+        <div class="d-flex flex-row">
+          <%= link_to 'Show', post_path(post), class: "btn btn-primary me-3" %>
+          <%= link_to 'Edit', edit_post_path(post), class: "btn btn-primary me-3" %>
+          <%= button_to 'Delete', post_path(post), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-primary me-3" %>
+          <%= link_to 'Comments', post_comments_path(post), class: "btn btn-primary me-3" %>
+          <%= link_to 'New Comment', new_post_comment_path(post), class: "btn btn-primary me-3" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+
+
+
+
+<!--<table>-->
+<!--  <thead>-->
+<!--  <td>title</td>-->
+<!--  <td>content</td>-->
+<!--  <td>category</td>-->
+<!--  <td>created at</td>-->
+<!--  <td>updated at</td>-->
+<!--  <td>action</td>-->
+<!--  </thead>-->
+<%# @posts.each do |post| %>
+<!--    <tr>-->
+<!--      <td><%#= post.title %></td>-->
+<!--      <td><%#= post.content %></td>-->
+<!--      <td><%#= post.categories.pluck(:name).join(',') %></td>-->
+<!--      <td><%#= post.created_at %></td>-->
+<!--      <td><%#= post.updated_at %></td>-->
+<!--      <td>-->
+<%#= link_to 'Show', post_path(post) %>
+<%#= link_to 'Edit', edit_post_path(post) %>
+<%#= button_to 'Delete', post_path(post), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+<%#= link_to 'Comments', post_comments_path(post) %>
+<%#= link_to 'New Comment', new_post_comment_path(post) %>
+<!--      </td>-->
+<!--    </tr>-->
+<%# end %>
+<!--</table>-->
+
+
