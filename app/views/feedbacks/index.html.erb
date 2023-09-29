@@ -4,41 +4,58 @@
 </header>
 
 
-<%#= form_tag feedbacks_path, method: "get", id: "filter_form", class: "card mb-3", data: { turbo: false } do %>
-<!--  <div class="main_filter">-->
-<!--    <div>-->
-<!--      <p>Sort by: </p>-->
-<!--      <div class="d-flex flex-row">-->
-<!--        <div class="pe-2">-->
-<%#= radio_button_tag :sort, :title, params[:sort] == "title" %>
-<%#= label_tag "Title" %>
-<!--        </div>-->
-<!--        <div>-->
-<%#= radio_button_tag :sort, :created_at, params[:sort] == "created_at" %>
-<%#= label_tag "Recent" %>
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+<div id="filters" class="d-flex flex-row">
 
-<!--    <div>-->
-<!--      <p>Category: </p>-->
-<!--      <div id="category_filter" class="d-flex flex-row">-->
-<%# @categories.each do |category| %>
-<!--          <div class="pe-2">-->
-<%#= check_box_tag category.name, "1", params[category.name.to_sym] == "1" %>
-<%#= label_tag category.name %>
-<!--          </div>-->
-<%# end %>
-<!--      </div>-->
-<!--    </div>-->
+  <div class="main_filter card p-2 mb-2 me-2 flex-grow-1">
+    <%= form_with url: feedbacks_path, method: :get, class: "form d-flex flex-row justify-content-between" do |form| %>
+      <div class="d-flex flex-row align-items-center">
+        <span class="me-2">Filter from: </span>
+        <div class="d-flex flex-row align-items-center">
+          <%= form.date_field :start_date, value: params[:start_date], class: "form-control form-control-sm" %>
+          <span class="px-2">to</span>
+          <%= form.date_field :end_date, value: params[:end_date], class: "form-control form-control-sm" %>
+        </div>
+      </div>
 
-<%#= submit_tag "Filter", class: "btn btn-primary" %>
-<!--  </div>-->
-<%# end %>
+      <div class="d-flex flex-row align-items-center p-2">
+        <span class="me-2">Sort by:</span>
+        <div class="d-flex flex-row align-items-center">
+          <div class="pe-2">
+            <%= form.radio_button :sort, :id, {checked: params[:sort] == "id" } %>
+            <%= form.label 'ID' %>
+          </div>
+          <div class="pe-2">
+            <%= form.radio_button :sort, :email, {checked: params[:sort] == "email" } %>
+            <%= form.label 'Email' %>
+          </div>
+          <div class="pe-2">
+            <%= form.radio_button :sort, :created_at, {checked: params[:sort] == "created_at" } %>
+            <%= form.label 'Recent' %>
+          </div>
+
+        </div>
+      </div>
+
+      <%= form.submit "Filter", class: "btn btn-primary justify-content-end" %>
+    <% end %>
+  </div>
+
+  <div class="card mb-2 p-1">
+    <%= form_with url: feedbacks_path, method: :get, class: "form d-flex flex-row h-100" do |form| %>
+      <%= form.text_field :search, value: params[:search] , class:"form-control me-2" %>
+
+      <%= form.button "Search", class: 'btn btn-primary', type: 'submit' do %>
+        <span class="d-flex flex-row align-items-center"><i class="fas fa-search pe-2"></i> Search</span>
+      <% end %>
+
+    <% end %>
+  </div>
+
+</div>
+
 
 
 <div class="">
-  <%# @feedbacks.each do |feedback| %>
   <div class="card mb-3 d-flex flex-row ">
     <table class="table table-striped table-hover table-bordered table-sm table-responsive">
       <thead>
@@ -69,7 +86,6 @@
       </tbody>
     </table>
   </div>
-  <%# end %>
 </div>
 
 
