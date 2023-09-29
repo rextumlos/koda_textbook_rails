@@ -1,9 +1,9 @@
 class FeedbacksController < ApplicationController
 
-  before_action :set_feedback, only: [:show, :edit, :update]
+  before_action :set_feedback, only: [:show, :edit, :update, :destroy]
 
   def index
-    @feedbacks = Feedback.all
+    @feedbacks = Feedback.all.order( id: :desc )
   end
 
   def show; end
@@ -33,6 +33,12 @@ class FeedbacksController < ApplicationController
       flash.now[:alert] = 'Feedback update failed'
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @feedback.destroy
+    flash[:notice] = 'Feedback destroyed successfully'
+    redirect_to feedbacks_path
   end
 
   private
