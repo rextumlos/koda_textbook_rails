@@ -42,10 +42,10 @@
 
   <div class="card mb-2 p-1">
     <%= form_with url: feedbacks_path, method: :get, class: "form d-flex flex-row h-100" do |form| %>
-      <%= form.text_field :search, value: params[:search] , class:"form-control me-2" %>
+      <%= form.text_field :email, value: params[:email] , class:"form-control me-2" %>
 
       <%= form.button "Search", class: 'btn btn-primary', type: 'submit' do %>
-        <span class="d-flex flex-row align-items-center"><i class="fas fa-search pe-2"></i> Search</span>
+        <span class="d-flex flex-row align-items-center"><i class="fas fa-search pe-2"></i> Email</span>
       <% end %>
 
     <% end %>

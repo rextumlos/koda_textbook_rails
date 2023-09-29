@@ -4,13 +4,16 @@ class FeedbacksController < ApplicationController
 
   def index
     @feedbacks = Feedback.all
-    if params[:search].present?
-      @feedbacks = @feedbacks.where('email LIKE ?', "%#{params[:search]}%")
+    if params[:email].present?
+      @feedbacks = @feedbacks.where('email LIKE ?', "%#{params[:email]}%")
     end
+
+    p params[:start_date]
+    p params[:end_date]
 
     if params[:start_date].present? and params[:end_date].present?
       start_date = params[:start_date]
-      end_date = params[:end_date]
+      end_date = params[:end_date].to_date.end_of_day
       @feedbacks = @feedbacks.where(created_at: start_date..end_date)
     end
 
