@@ -20,6 +20,9 @@ class PostsController < ApplicationController
 
     @posts = @posts.where(categories: { name: category_names}) if category_names.any?
 
+    if params[:filter].present?
+      @posts = @posts.where(published: true)
+    end
     # start_date = '2023-09-01'
     # end_date = '2023-09-29'
     # @posts = Post.all.order(created_at: :desc)
