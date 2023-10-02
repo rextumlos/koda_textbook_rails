@@ -3,56 +3,64 @@
   <%= link_to 'Create New Feedback', feedbacks_new_path, class: 'btn btn-primary h-100' %>
 </header>
 
-
-<div id="filters" class="d-flex flex-row">
-
-  <div class="main_filter card p-2 mb-2 me-2 flex-grow-1">
-    <%= form_with url: feedbacks_path, method: :get, class: "form d-flex flex-row justify-content-between" do |form| %>
+<%= form_with url: feedbacks_path, method: :get, id: "filter-form", class: "form" do |form| %>
+  <div class="card d-flex flex-row justify-content-between align-items-center mb-2 px-2">
+    <div class="d-flex flex-column justify-content-center">
+      <span class="me-2">Filter from: </span>
       <div class="d-flex flex-row align-items-center">
-        <span class="me-2">Filter from: </span>
-        <div class="d-flex flex-row align-items-center">
-          <%= form.date_field :start_date, value: params[:start_date], class: "form-control form-control-sm" %>
-          <span class="px-2">to</span>
-          <%= form.date_field :end_date, value: params[:end_date], class: "form-control form-control-sm" %>
-        </div>
+        <%= form.date_field :start_date, value: params[:start_date], class: "form-control form-control-sm" %>
+        <span class="px-2">to</span>
+        <%= form.date_field :end_date, value: params[:end_date], class: "form-control form-control-sm" %>
       </div>
+    </div>
 
-      <div class="d-flex flex-row align-items-center p-2">
+    <div class="p-2">
+      <div class="d-flex flex-row align-items-center">
         <span class="me-2">Sort by:</span>
-        <div class="d-flex flex-row align-items-center">
-          <div class="pe-2">
-            <%= form.radio_button :sort, :id, {checked: params[:sort] == "id" } %>
-            <%= form.label 'ID' %>
-          </div>
-          <div class="pe-2">
-            <%= form.radio_button :sort, :email, {checked: params[:sort] == "email" } %>
-            <%= form.label 'Email' %>
-          </div>
-          <div class="pe-2">
-            <%= form.radio_button :sort, :created_at, {checked: params[:sort] == "created_at" } %>
-            <%= form.label 'Recent' %>
-          </div>
-
+        <div class="pe-2">
+          <%= form.radio_button :sort, :id, { checked: params[:sort] == "id" } %>
+          <%= form.label 'ID' %>
+        </div>
+        <div class="pe-2">
+          <%= form.radio_button :sort, :email, { checked: params[:sort] == "email" } %>
+          <%= form.label 'Email' %>
+        </div>
+        <div class="pe-2">
+          <%= form.radio_button :sort, :created_at, { checked: params[:sort] == "created_at" } %>
+          <%= form.label 'Recent' %>
         </div>
       </div>
 
+      <div class="d-flex flex-row align-items-center">
+        <span class="me-2">Remark:</span>
+        <div class="pe-2">
+          <%= form.select :remark, options_for_select(@remarks, selected: params[:remark]), include_blank: true %>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <%= form.text_field :search, value: params[:search], placeholder: "Search...", class: "form-control" %>
+    </div>
+
+    <div>
       <%= form.submit "Filter", class: "btn btn-primary justify-content-end" %>
-    <% end %>
+    </div>
+
   </div>
+<% end %>
 
-  <div class="card mb-2 p-1">
-    <%= form_with url: feedbacks_path, method: :get, class: "form d-flex flex-row h-100" do |form| %>
-      <%= form.text_field :email, value: params[:email] , class:"form-control me-2" %>
 
-      <%= form.button "Search", class: 'btn btn-primary', type: 'submit' do %>
-        <span class="d-flex flex-row align-items-center"><i class="fas fa-search pe-2"></i> Email</span>
-      <% end %>
+<!--  <div class="card mb-2 p-1">-->
+<%#= form_with url: feedbacks_path, method: :get, class: "form d-flex flex-row h-100" do |form| %>
+<%#= form.text_field :email, value: params[:email] , class:"form-control me-2" %>
 
-    <% end %>
-  </div>
+<%#= form.button "Search", class: 'btn btn-primary', type: 'submit' do %>
+<!--        <span class="d-flex flex-row align-items-center"><i class="fas fa-search pe-2"></i> Email</span>-->
+<%# end %>
 
-</div>
-
+<%# end %>
+<!--  </div>-->
 
 
 <div class="">

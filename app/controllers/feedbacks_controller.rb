@@ -1,12 +1,12 @@
 class FeedbacksController < ApplicationController
 
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
-  before_action :set_remarks, only: [:new, :edit]
+  before_action :set_remarks, only: [:index, :new, :edit]
 
   def index
     @feedbacks = Feedback.all
-    if params[:email].present?
-      @feedbacks = @feedbacks.where('email LIKE ?', "%#{params[:email]}%")
+    if params[:search].present?
+      @feedbacks = @feedbacks.where('email LIKE :search OR message LIKE :search', search: "%#{params[:search]}%")
     end
 
     if params[:start_date].present? and params[:end_date].present?
@@ -19,6 +19,10 @@ class FeedbacksController < ApplicationController
       @feedbacks = @feedbacks.order(email: :asc) if params[:sort] == "email"
       @feedbacks = @feedbacks.order(id: :asc) if params[:sort] == "id"
       @feedbacks = @feedbacks.order(created_at: :desc) if params[:sort] == "created_at"
+    end
+
+    if params[:remark].present?
+      @feedbacks = @feedbacks.where(remark: params[:remark])
     end
   end
 
