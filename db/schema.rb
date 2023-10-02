@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_29_112851) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_02_052046) do
   create_table "categories", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_112851) do
     t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "remark", default: 0
   end
 
   create_table "post_category_ships", charset: "utf8mb4", force: :cascade do |t|
