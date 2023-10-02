@@ -3,4 +3,6 @@ class Feedback < ApplicationRecord
   validates :message, presence: true
 
   enum :remark, { unmarked: 0, neutral: 1, good: 2, bad: 3  }, suffix: true
+
+  has_many :notes
 end

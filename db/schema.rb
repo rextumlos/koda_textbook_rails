@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_02_052046) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_02_082818) do
   create_table "categories", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -31,6 +31,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_052046) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "remark", default: 0
+  end
+
+  create_table "notes", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "feedback_id"
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feedback_id"], name: "index_notes_on_feedback_id"
   end
 
   create_table "post_category_ships", charset: "utf8mb4", force: :cascade do |t|
