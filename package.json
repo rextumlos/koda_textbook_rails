@@ -10,6 +10,7 @@
     "bootstrap-icons": "^1.11.1",
     "esbuild": "^0.19.3",
     "nodemon": "^3.0.1",
+    "popper.js": "^1.16.1",
     "postcss": "^8.4.30",
     "postcss-cli": "^10.1.0",
     "sass": "^1.68.0"
