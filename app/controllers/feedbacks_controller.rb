@@ -26,7 +26,9 @@ class FeedbacksController < ApplicationController
     end
   end
 
-  def show; end
+  def show;
+    @notes = @feedback.notes.all
+  end
 
   def new
     @feedback = Feedback.new

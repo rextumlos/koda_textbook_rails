@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   get '/about', to: 'welcome#about'
   get '/contact', to: 'welcome#contact'
 
-  resources :feedbacks
+  resources :feedbacks do
+    resources :notes, except: [:index, :show]
+  end
 
   resources :posts do
     resources :comments, except: :show

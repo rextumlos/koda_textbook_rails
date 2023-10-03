@@ -1,4 +1,4 @@
-<div class="container mt-2">
+<div class="container my-2">
 
   <div id="buttons" class="d-flex flex-row justify-content-between mb-2">
     <%= link_to 'Back to Dashboard', feedbacks_path, class:"btn btn-dark" %>
@@ -9,7 +9,7 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card mb-2">
     <div class="card-header d-flex flex-row justify-content-between">
       <p>Sent by: <%= @feedback.email %></p>
     </div>
@@ -21,5 +21,27 @@
       <div class="line mb-2"></div>
       <p>Time sent: <%= @feedback.created_at %></p>
     </div>
+  </div>
+
+  <div class="card p-3">
+    <div class="d-flex flex-row justify-content-between align-items-center text-center">
+      <h5>Notes</h5>
+      <%= link_to 'Add note', new_feedback_note_path(@feedback), class:"btn btn-sm btn-primary" %>
+    </div>
+
+    <div class="line my-2"></div>
+
+    <% @notes.each do |note| %>
+      <div class="card p-2 mb-2">
+        <div class="card-header d-flex flex-row justify-content-between">
+          <%= note.created_at %>
+          <div class="d-flex flex-row justify-content-end">
+            <%= link_to 'Edit', edit_feedback_note_path(@feedback, note), class: "btn btn-sm btn-primary me-2" %>
+            <%= button_to 'Delete', feedback_note_path(@feedback, note), method: :delete, class: "btn btn-sm btn-danger"  %>
+          </div>
+        </div>
+        <p class="card-body"><%= note.content %></p>
+      </div>
+    <% end %>
   </div>
 </div>
