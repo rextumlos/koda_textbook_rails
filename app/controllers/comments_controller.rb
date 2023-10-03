@@ -6,12 +6,10 @@ class CommentsController < ApplicationController
     @comments = @post.comments
 
     @orders = %w[Ascending Descending]
-    if params[:order].present?
-      if params[:order] == "Ascending"
+    if params[:order].present? and params[:order] == "Ascending"
         @comments = @comments.order(created_at: :asc)
-      else
-        @comments = @comments.order(created_at: :desc)
-      end
+    else
+      @comments = @comments.order(created_at: :desc)
     end
   end
 

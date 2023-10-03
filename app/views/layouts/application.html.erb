@@ -47,7 +47,7 @@
             <span><i class="fa-solid fa-user"></i> <%= current_user.email %></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><%= link_to 'Sign out', destroy_user_session_path, class: "dropdown-item", data: { 'turbo-method': :delete } %></li>
+            <li><%= link_to 'Sign out', destroy_user_session_path, class: "dropdown-item text-end", data: { 'turbo-method': :delete } %></li>
           </ul>
         </div>
       <% else %>
