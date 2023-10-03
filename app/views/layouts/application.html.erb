@@ -40,6 +40,22 @@
       </ul>
     </div>
 
+    <div>
+      <% if user_signed_in? %>
+        <div class="btn-group">
+          <button class="btn btn-black dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            <span><i class="fa-solid fa-user"></i> <%= current_user.email %></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><%= link_to 'Sign out', destroy_user_session_path, class: "dropdown-item", data: { 'turbo-method': :delete } %></li>
+          </ul>
+        </div>
+      <% else %>
+        <%= link_to new_user_session_path do %>
+          <span><i class="fa-solid fa-user"></i> Login</span>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </nav>
 
