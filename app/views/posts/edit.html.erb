@@ -1,5 +1,7 @@
-<h1>Edit Post ID: <%= @post.id %></h1>
+<div class="container">
+  <h1>Edit Post ID: <%= @post.id %></h1>
 
-<%= render partial: 'form', locals: {post: @post} %>
+  <%= render partial: 'form', locals: {post: @post} %>
 
-<%= link_to 'Index', posts_path %>
+  <%= link_to 'Index', posts_path %>
+</div>

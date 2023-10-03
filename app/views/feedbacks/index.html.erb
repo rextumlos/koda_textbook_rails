@@ -1,104 +1,88 @@
-<header class="m-2 d-flex flex-row justify-content-between align-items-center">
-  <h1>Feedback Dashboard</h1>
-  <%= link_to 'Create New Feedback', feedbacks_new_path, class: 'btn btn-primary h-100' %>
-</header>
+<div class="container">
+  <header class="m-2 d-flex flex-row justify-content-between align-items-center">
+    <h1>Feedback Dashboard</h1>
+    <%= link_to 'Create New Feedback', feedbacks_new_path, class: 'btn btn-primary h-100' %>
+  </header>
 
-<%= form_with url: feedbacks_path, method: :get, id: "filter-form", class: "form" do |form| %>
-  <div class="card d-flex flex-row justify-content-between align-items-center mb-2 px-2">
-    <div class="d-flex flex-column justify-content-center">
-      <span class="me-2">Filter from: </span>
-      <div class="d-flex flex-row align-items-center">
-        <%= form.date_field :start_date, value: params[:start_date], class: "form-control form-control-sm" %>
-        <span class="px-2">to</span>
-        <%= form.date_field :end_date, value: params[:end_date], class: "form-control form-control-sm" %>
-      </div>
-    </div>
-
-    <div class="p-2">
-      <div class="d-flex flex-row align-items-center">
-        <span class="me-2">Sort by:</span>
-        <div class="pe-2">
-          <%= form.radio_button :sort, :id, { checked: params[:sort] == "id" } %>
-          <%= form.label 'ID' %>
-        </div>
-        <div class="pe-2">
-          <%= form.radio_button :sort, :email, { checked: params[:sort] == "email" } %>
-          <%= form.label 'Email' %>
-        </div>
-        <div class="pe-2">
-          <%= form.radio_button :sort, :created_at, { checked: params[:sort] == "created_at" } %>
-          <%= form.label 'Recent' %>
+  <%= form_with url: feedbacks_path, method: :get, id: "filter-form", class: "form" do |form| %>
+    <div class="card d-flex flex-row justify-content-between align-items-center mb-2 px-2">
+      <div class="d-flex flex-column justify-content-center">
+        <span class="me-2">Filter from: </span>
+        <div class="d-flex flex-row align-items-center">
+          <%= form.date_field :start_date, value: params[:start_date], class: "form-control form-control-sm" %>
+          <span class="px-2">to</span>
+          <%= form.date_field :end_date, value: params[:end_date], class: "form-control form-control-sm" %>
         </div>
       </div>
 
-      <div class="d-flex flex-row align-items-center">
-        <span class="me-2">Remark:</span>
-        <div class="pe-2">
-          <%= form.select :remark, options_for_select(@remarks, selected: params[:remark]), include_blank: true %>
+      <div class="p-2">
+        <div class="d-flex flex-row align-items-center">
+          <span class="me-2">Sort by:</span>
+          <div class="pe-2">
+            <%= form.radio_button :sort, :id, { checked: params[:sort] == "id" } %>
+            <%= form.label 'ID' %>
+          </div>
+          <div class="pe-2">
+            <%= form.radio_button :sort, :email, { checked: params[:sort] == "email" } %>
+            <%= form.label 'Email' %>
+          </div>
+          <div class="pe-2">
+            <%= form.radio_button :sort, :created_at, { checked: params[:sort] == "created_at" } %>
+            <%= form.label 'Recent' %>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row align-items-center">
+          <span class="me-2">Remark:</span>
+          <div class="pe-2">
+            <%= form.select :remark, options_for_select(@remarks, selected: params[:remark]), include_blank: true %>
+          </div>
         </div>
       </div>
+
+      <div>
+        <%= form.text_field :search, value: params[:search], placeholder: "Search...", class: "form-control" %>
+      </div>
+
+      <div>
+        <%= form.submit "Filter", class: "btn btn-primary justify-content-end" %>
+      </div>
+
     </div>
+  <% end %>
 
-    <div>
-      <%= form.text_field :search, value: params[:search], placeholder: "Search...", class: "form-control" %>
-    </div>
-
-    <div>
-      <%= form.submit "Filter", class: "btn btn-primary justify-content-end" %>
-    </div>
-
-  </div>
-<% end %>
-
-
-<!--  <div class="card mb-2 p-1">-->
-<%#= form_with url: feedbacks_path, method: :get, class: "form d-flex flex-row h-100" do |form| %>
-<%#= form.text_field :email, value: params[:email] , class:"form-control me-2" %>
-
-<%#= form.button "Search", class: 'btn btn-primary', type: 'submit' do %>
-<!--        <span class="d-flex flex-row align-items-center"><i class="fas fa-search pe-2"></i> Email</span>-->
-<%# end %>
-
-<%# end %>
-<!--  </div>-->
-
-
-<div class="">
-  <div class="card mb-3 d-flex flex-row ">
-    <table class="table table-striped table-hover table-bordered table-sm table-responsive">
-      <thead>
-      <tr>
-        <th scope="col" class="text-center">ID</th>
-        <th scope="col">From: [Email]</th>
-        <th scope="col">Message</th>
-        <th scope="col">Remark</th>
-        <th scope="col">Date sent</th>
-        <th scope="col">Actions</th>
-      </tr>
-      </thead>
-      <tbody class="table-group-divider">
-      <% @feedbacks.each do |feedback| %>
+  <div class="">
+    <div class="card mb-3 d-flex flex-row ">
+      <table class="table table-striped table-hover table-bordered table-sm table-responsive">
+        <thead>
         <tr>
-          <th scope="row" class="text-center"><%= feedback.id %></th>
-          <td><%= feedback.email %></td>
-          <td><%= truncate(feedback.message, length: 30, separator: " ") %></td>
-          <td><%= feedback.remark.capitalize %></td>
-          <td><%= feedback.created_at %></td>
-          <td>
-            <div class="d-flex flex-row justify-content-center">
-              <%= link_to 'Show', feedback_path(feedback), class: 'btn btn-sm btn-success me-2' %>
-              <%= link_to 'Edit', edit_feedback_path(feedback), class: 'btn btn-sm btn-primary me-2' %>
-              <%= button_to 'Delete', feedback_path(feedback), method: :delete, class: 'btn btn-sm btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
-            </div>
-          </td>
+          <th scope="col" class="text-center">ID</th>
+          <th scope="col">From: [Email]</th>
+          <th scope="col">Message</th>
+          <th scope="col">Remark</th>
+          <th scope="col">Date sent</th>
+          <th scope="col">Actions</th>
         </tr>
-      <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody class="table-group-divider">
+        <% @feedbacks.each do |feedback| %>
+          <tr>
+            <th scope="row" class="text-center"><%= feedback.id %></th>
+            <td><%= feedback.email %></td>
+            <td><%= truncate(feedback.message, length: 30, separator: " ") %></td>
+            <td><%= feedback.remark.capitalize %></td>
+            <td><%= feedback.created_at %></td>
+            <td>
+              <div class="d-flex flex-row justify-content-center">
+                <%= link_to 'Show', feedback_path(feedback), class: 'btn btn-sm btn-success me-2' %>
+                <%= link_to 'Edit', edit_feedback_path(feedback), class: 'btn btn-sm btn-primary me-2' %>
+                <%= button_to 'Delete', feedback_path(feedback), method: :delete, class: 'btn btn-sm btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
-
-
-
-
-
