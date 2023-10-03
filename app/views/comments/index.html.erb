@@ -1,14 +1,47 @@
-<h1>Title <%= @post.title %></h1>
-<h2>Comments</h2>
+<%= link_to 'Back to posts', posts_path, class: "btn btn-dark mt-2" %>
 
-<ul>
-  <% @comments.each do |comment| %>
-    <li>
-      <%= comment.content %>(<%= comment.created_at %>)
-      <%= link_to 'Edit', edit_post_comment_path(@post, comment) %>
-      <%= button_to 'Delete', post_comment_path(@post, comment), method: :delete %>
-    </li>
-  <% end %>
-</ul>
+<div class="card my-2">
+  <h5 class="card-header"><%= @post.title %></h5>
+  <p class="p-2"><%= @post.content %></p>
+</div>
 
-<% link_to 'Post List', posts_path %>
+<div class="container card p-2">
+  <div class="d-flex flex-row align-items-center justify-content-between mb-2">
+    <h4>Comments</h4>
+    <div class="d-flex flex-row align-items-center">
+      <span class="me-2">Order by:</span>
+
+      <%= form_with url: post_comments_path(@post), method: :get, class: "d-flex flex-row align-items-center" do |form| %>
+        <div class="p-2">
+          <%= form.select :order, options_for_select(@orders, selected: params[:order]), include_blank: true %>
+        </div>
+
+        <div>
+          <%= form.submit "Sort", class: "btn btn-sm btn-primary justify-content-end" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+
+  <ul class="">
+    <% @comments.each do |comment| %>
+      <li class="card mb-2">
+        <p class="card-header"><%= comment.created_at %></p>
+        <div class="card-body d-flex flex-row justify-content-between">
+          <%= comment.content %>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex flex-row justify-content-end">
+            <%= link_to 'Edit', edit_post_comment_path(@post, comment), class: "btn btn-sm btn-primary me-2" %>
+            <%= button_to 'Delete', post_comment_path(@post, comment), method: :delete, class: "btn btn-sm btn-danger"  %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= link_to 'Add new comment', new_post_comment_path(@post), class: "btn btn-primary me-3 w-100" %>
+
+</div>
+

@@ -4,6 +4,15 @@ class CommentsController < ApplicationController
 
   def index
     @comments = @post.comments
+
+    @orders = %w[Ascending Descending]
+    if params[:order].present?
+      if params[:order] == "Ascending"
+        @comments = @comments.order(created_at: :asc)
+      else
+        @comments = @comments.order(created_at: :desc)
+      end
+    end
   end
 
   def new
