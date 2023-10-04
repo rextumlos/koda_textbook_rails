@@ -31,13 +31,6 @@
             <%= form.label 'Recent' %>
           </div>
         </div>
-
-<!--        <div class="d-flex flex-row align-items-center">-->
-<!--          <span class="me-2">Remark:</span>-->
-<!--          <div class="pe-2">-->
-            <%#= form.select :remark, options_for_select(@remarks, selected: params[:remark]), include_blank: true %>
-<!--          </div>-->
-<!--        </div>-->
       </div>
 
       <div>
@@ -59,7 +52,6 @@
           <th scope="col" class="text-center">ID</th>
           <th scope="col">From: [Email]</th>
           <th scope="col">Message</th>
-<!--          <th scope="col">Remark</th>-->
           <th scope="col">Date sent</th>
           <th scope="col">Actions</th>
         </tr>
@@ -70,7 +62,6 @@
             <th scope="row" class="text-center"><%= feedback.id %></th>
             <td><%= feedback.email %></td>
             <td><%= truncate(feedback.message, length: 30, separator: " ") %></td>
-<!--            <td><%#= feedback.remark.capitalize %></td>-->
             <td><%= feedback.created_at %></td>
             <td>
               <div class="d-flex flex-row justify-content-center">

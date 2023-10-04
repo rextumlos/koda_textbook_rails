@@ -1,0 +1,17 @@
+
+<%= form_with model: remark do |form| %>
+  <% if remark.errors.any? %>
+    <ul>
+      <% remark.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class:"form-control" %>
+  </div>
+
+  <%= form.submit "Submit", class:"btn btn-primary" %>
+<% end %>
