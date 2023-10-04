@@ -1,4 +1,5 @@
 class Note < ApplicationRecord
+  default_scope { where(deleted_at: nil) }
   belongs_to :feedback
 
   validates :content, presence: true

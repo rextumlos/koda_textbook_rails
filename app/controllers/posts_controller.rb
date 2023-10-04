@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  default_scope { where(deleted_at: nil) }
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index

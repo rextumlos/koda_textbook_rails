@@ -1,5 +1,4 @@
 class FeedbacksController < ApplicationController
-  default_scope { where(deleted_at: nil) }
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
 
   def index
