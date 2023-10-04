@@ -1,7 +1,7 @@
 class FeedbacksController < ApplicationController
 
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
-  before_action :set_remarks, only: [:index, :new, :edit]
+  # before_action :set_remarks, only: [:index, :new, :edit]
 
   def index
     @feedbacks = Feedback.all
@@ -21,9 +21,9 @@ class FeedbacksController < ApplicationController
       @feedbacks = @feedbacks.order(created_at: :desc) if params[:sort] == "created_at"
     end
 
-    if params[:remark].present?
-      @feedbacks = @feedbacks.where(remark: params[:remark])
-    end
+    # if params[:remark].present?
+    #   @feedbacks = @feedbacks.where(remark: params[:remark])
+    # end
   end
 
   def show;
@@ -69,10 +69,10 @@ class FeedbacksController < ApplicationController
     @feedback = Feedback.find(params[:id])
   end
 
-  def set_remarks
-    # Need to map remarks where key is humanize and value is key because "0" and "1" which should be 0, 1 are invalid remarks.
-    @remarks = Feedback.remarks.map {|key, value| [key.humanize, key]}
-  end
+  # def set_remarks
+  #   # Need to map remarks where key is humanize and value is key because "0" and "1" which should be 0, 1 are invalid remarks.
+  #   @remarks = Feedback.remarks.map {|key, value| [key.humanize, key]}
+  # end
 
   def feedback_params
     params.require(:feedback).permit(:email, :message, :remark)
