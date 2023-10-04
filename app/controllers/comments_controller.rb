@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  default_scope { where(deleted_at: nil) }
   before_action :set_post
   before_action :set_comment, only: [:edit, :update, :destroy]
 

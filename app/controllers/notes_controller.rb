@@ -1,4 +1,5 @@
 class NotesController < ApplicationController
+  default_scope { where(deleted_at: nil) }
   before_action :set_feedback
   before_action :set_note,  only: [:edit, :update, :destroy]
 
