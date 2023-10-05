@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :check_auth_user, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.includes(:categories).all
+    @posts = Post.includes(:categories, :user).all
     @categories = Category.all
 
     category_names =  params.select { |k, v| v == "1"}.keys
@@ -23,6 +23,8 @@ class PostsController < ApplicationController
     if params[:filter].present?
       @posts = @posts.where(published: true)
     end
+
+    @posts = @posts.page(params[:page]).per(10)
   end
 
   def new

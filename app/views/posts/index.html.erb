@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mb-2">
   <header class="m-2 d-flex flex-row justify-content-between align-items-center">
     <h1>Post List</h1>
     <%= link_to 'Create New Post', new_post_path, class: 'btn btn-primary h-100' %>
@@ -44,6 +44,9 @@
     </div>
   <% end %>
 
+  <div class="d-flex justify-content-center mb-2">
+    <%= paginate @posts %>
+  </div>
 
   <div class="">
     <% @posts.each do |post| %>
@@ -78,4 +81,9 @@
       </div>
     <% end %>
   </div>
+
+  <div class="d-flex justify-content-center p-2">
+    <%= paginate @posts %>
+  </div>
+
 </div>
