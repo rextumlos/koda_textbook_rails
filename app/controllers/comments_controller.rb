@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_post
   before_action :set_comment, only: [:edit, :update, :destroy]
 
@@ -19,6 +20,8 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @post.comments.build(comment_params)
+    @comment.user = current_user
+
     if @comment.save
       flash[:notice] = "Comment created successfully"
       redirect_to post_comments_path(@post)
@@ -52,6 +55,11 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = @post.comments.find(params[:id])
+
+    unless @comment.user == current_user
+      flash[:alert] = 'Unauthorized access.'
+      redirect_to post_comments_path(@post)
+    end
   end
 
   def comment_params
