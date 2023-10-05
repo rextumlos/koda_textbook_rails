@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
 
   def index
-    @comments = @post.comments
+    @comments = @post.comments.includes(:user)
 
     @orders = %w[Ascending Descending]
     if params[:order].present? and params[:order] == "Ascending"
@@ -12,6 +12,8 @@ class CommentsController < ApplicationController
     else
       @comments = @comments.order(created_at: :desc)
     end
+
+    @comments = @comments.page(params[:page]).per(10)
   end
 
   def new

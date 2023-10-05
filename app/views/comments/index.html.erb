@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mb-2">
   <%= link_to 'Back to posts', posts_path, class: "btn btn-dark mt-2" %>
 
   <div class="card my-2">
@@ -6,9 +6,15 @@
     <p class="p-2"><%= @post.content %></p>
   </div>
 
+
   <div class="container card p-2">
     <div class="d-flex flex-row align-items-center justify-content-between mb-2">
       <h4>Comments</h4>
+
+      <div class="d-flex justify-content-center mb-2">
+        <%= paginate @comments %>
+      </div>
+
       <div class="d-flex flex-row align-items-center">
         <span class="me-2">Order by:</span>
 
@@ -45,5 +51,9 @@
     </ul>
 
     <%= link_to 'Add new comment', new_post_comment_path(@post), class: "btn btn-primary me-3 w-100" %>
+    <div class="d-flex justify-content-center m-2">
+      <%= paginate @comments %>
+    </div>
   </div>
+
 </div>
