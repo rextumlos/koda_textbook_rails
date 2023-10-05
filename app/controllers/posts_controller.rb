@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -31,6 +32,7 @@ class PostsController < ApplicationController
   # Creating a new post
   def create
     @post = Post.new(post_params)
+    @post.user = current_user
 
     if @post.save
       flash[:notice] = 'Post created successfully'
@@ -45,7 +47,12 @@ class PostsController < ApplicationController
   def show; end
 
   # Initiate editing a post, /post/:id/edit
-  def edit; end
+  def edit
+    unless @post.user.email == current_user
+      flash[:alert] = 'Unauthorized access.'
+      redirect_to posts_path
+    end
+  end
 
   # Updating a post
   def update
@@ -60,6 +67,11 @@ class PostsController < ApplicationController
 
   # Deleting a post
   def destroy
+    unless @post.user.email == current_user
+      flash[:alert] = 'Unauthorized access.'
+      redirect_to posts_path
+    end
+
     @post.destroy
     flash[:notice] = 'Post destroyed successfully'
     redirect_to posts_path

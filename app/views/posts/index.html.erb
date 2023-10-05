@@ -1,5 +1,5 @@
 <div class="container">
-  <header class = "m-2 d-flex flex-row justify-content-between align-items-center">
+  <header class="m-2 d-flex flex-row justify-content-between align-items-center">
     <h1>Post List</h1>
     <%= link_to 'Create New Post', new_post_path, class: 'btn btn-primary h-100' %>
   </header>
@@ -26,7 +26,7 @@
           <% @categories.each do |category| %>
             <div class="pe-2">
               <%= check_box_tag category.name, "1", params[category.name.to_sym] == "1" %>
-              <%= label_tag category.name %>
+              <%= label_tag category.name%>
             </div>
           <% end %>
         </div>
@@ -53,7 +53,7 @@
             <% if post.published %>
               <i class="fa-solid fa-check me-2"></i>
             <% end %>
-            <p><%= post.created_at.strftime('%a, %B %d, %Y | %I:%M %p') %></p>
+            <p><%= post.user.email %> | <%= post.created_at.strftime('%a, %B %d, %Y | %I:%M %p') %></p>
           </div>
           <div>
             <% post.categories.pluck(:name).each do |category| %>
@@ -67,8 +67,10 @@
           <p class="card-text"><%= post.content %></p>
           <div class="d-flex flex-row">
             <%= link_to 'Show', post_path(post), class: "btn btn-primary me-3" %>
-            <%= link_to 'Edit', edit_post_path(post), class: "btn btn-primary me-3" %>
-            <%= button_to 'Delete', post_path(post), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-primary me-3" %>
+            <% if current_user == post.user %>
+              <%= link_to 'Edit', edit_post_path(post), class: "btn btn-primary me-3" %>
+              <%= button_to 'Delete', post_path(post), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-primary me-3" %>
+            <% end %>
             <%= link_to 'Comments', post_comments_path(post), class: "btn btn-primary me-3" %>
             <%= link_to 'New Comment', new_post_comment_path(post), class: "btn btn-primary me-3" %>
           </div>

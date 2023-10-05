@@ -19,7 +19,7 @@ end
 
 # Create categories
 5.times do
-  Category.create(name: Faker::Esport.game)
+  Category.find_or_create_by(name: Faker::Esport.game)
 end
 
 # Create remarks
