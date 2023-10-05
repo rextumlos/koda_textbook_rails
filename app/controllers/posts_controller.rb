@@ -48,7 +48,7 @@ class PostsController < ApplicationController
 
   # Initiate editing a post, /post/:id/edit
   def edit
-    unless @post.user.email == current_user
+    unless @post.user == current_user
       flash[:alert] = 'Unauthorized access.'
       redirect_to posts_path
     end
@@ -67,7 +67,7 @@ class PostsController < ApplicationController
 
   # Deleting a post
   def destroy
-    unless @post.user.email == current_user
+    unless @post.user == current_user
       flash[:alert] = 'Unauthorized access.'
       redirect_to posts_path
     end
