@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_04_085644) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_05_043022) do
   create_table "categories", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -23,7 +23,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_085644) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.bigint "user_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "feedbacks", charset: "utf8mb4", force: :cascade do |t|
@@ -33,7 +35,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_085644) do
     t.datetime "updated_at", null: false
     t.bigint "remark_id"
     t.datetime "deleted_at"
+    t.bigint "user_id"
     t.index ["remark_id"], name: "index_feedbacks_on_remark_id"
+    t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
   create_table "notes", charset: "utf8mb4", force: :cascade do |t|
@@ -61,12 +65,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_085644) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.boolean "published"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "remarks", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|

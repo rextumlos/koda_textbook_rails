@@ -8,6 +8,8 @@ class Post < ApplicationRecord
   has_many :post_category_ships
   has_many :categories, through: :post_category_ships
 
+  belongs_to :user
+
   # Overrides the existing destroy
   # method from controller
   def destroy

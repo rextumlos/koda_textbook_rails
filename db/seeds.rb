@@ -12,61 +12,51 @@
 #   feedback = Feedback.create({email: "#{initial_email}@gmail.com" , message: "#{message}"})
 # end
 
-# Seed data for posts table
-posts = [
-  { title: "Post 1", content: "Content for Post 1", published: true },
-  { title: "Post 2", content: "Content for Post 2", published: true },
-  { title: "Post 3", content: "Content for Post 3", published: false },
-]
+# Create user
+3.times do |i|
+  User.create(email: "user#{i}@gmail.com", password: "password", password_confirmation: "password")
+end
 
-Post.create(posts)
-# posts.each do | post |
-#   Post.create(post)
-# end
+# Create categories
+5.times do
+  Category.create(name: Faker::Esport.game)
+end
+
+# Create remarks
+Remark.create(name: 'Unmarked')
+Remark.create(name: 'Bad')
+Remark.create(name: 'Neutral')
+Remark.create(name: 'Good')
+
+# Create Posts
+50.times do
+  post = Post.create(
+    title: Faker::Hipster.sentence(word_count: 1),
+    content: Faker::Lorem.paragraph(sentence_count: 4, random_sentences_to_add: 4),
+    category_ids: [Category.all.sample.id],
+    user: User.all.sample
+  )
+
+  # Create comments in post
+  10.times do
+    Comment.create(
+      content: Faker::Hacker.say_something_smart,
+      post: post,
+      user: User.all.sample
+    )
+  end
+end
+
+# Create Feedbacks
+30.times do
+  user = User.all.sample
+  Feedback.create(
+    user: user,
+    email: user.email,
+    message: Faker::GreekPhilosophers.quote,
+    remark: Remark.first
+  )
+end
 
 
-# Seed data for categories table
-categories = [
-  { name: "Category 1" },
-  { name: "Category 2" },
-  { name: "Category 3" },
-]
 
-Category.create(categories)
-
-# Seed data for post_category_ships table (associations between posts and categories)
-post_category_ships = [
-  { post_id: 1, category_id: 1 },
-  { post_id: 1, category_id: 2 },
-  { post_id: 2, category_id: 2 },
-  { post_id: 3, category_id: 3 },
-]
-
-PostCategoryShip.create(post_category_ships)
-
-# Seed data for comments table
-comments = [
-  { content: "Comment 1 for Post 1", post_id: 1 },
-  { content: "Comment 2 for Post 1", post_id: 1 },
-  { content: "Comment 1 for Post 2", post_id: 2 },
-]
-
-Comment.create(comments)
-
-# Seed data for feedbacks table
-feedbacks = [
-  { email: "user1@example.com", message: "Feedback message 1" },
-  { email: "user2@example.com", message: "Feedback message 2", remark: 1 },
-  { email: "user3@example.com", message: "Feedback message 3" },
-]
-
-Feedback.create(feedbacks)
-
-# Seed data for notes table (associations between notes and feedbacks)
-notes = [
-  { feedback_id: 1, content: "Note 1 for Feedback 1" },
-  { feedback_id: 1, content: "Note 2 for Feedback 1" },
-  { feedback_id: 2, content: "Note 1 for Feedback 2" },
-]
-
-Note.create(notes)

@@ -5,6 +5,7 @@ class Feedback < ApplicationRecord
 
   has_many :notes
   belongs_to :remark, optional: true
+  belongs_to :user
 
   def destroy
     update(deleted_at: Time.now)
