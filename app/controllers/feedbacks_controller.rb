@@ -1,5 +1,7 @@
 class FeedbacksController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
+  before_action :check_auth_user, only: [:edit, :update, :destroy]
 
   def index
     @feedbacks = Feedback.all
@@ -7,15 +9,15 @@ class FeedbacksController < ApplicationController
       @feedbacks = @feedbacks.where('email LIKE :search OR message LIKE :search', search: "%#{params[:search]}%")
     end
 
-    if params[:start_date].present? and params[:end_date].present?
+    if params[:start_date].present? && params[:end_date].present?
       start_date = params[:start_date]
       end_date = params[:end_date].to_date.end_of_day
       @feedbacks = @feedbacks.where(created_at: start_date..end_date)
     end
 
     if params[:sort].present?
-      @feedbacks = @feedbacks.order(email: :asc) if params[:sort] == "email"
-      @feedbacks = @feedbacks.order(id: :asc) if params[:sort] == "id"
+      @feedbacks = @feedbacks.order(:email) if params[:sort] == "email"
+      @feedbacks = @feedbacks.order(:id) if params[:sort] == "id"
       @feedbacks = @feedbacks.order(created_at: :desc) if params[:sort] == "created_at"
     end
   end
@@ -61,6 +63,13 @@ class FeedbacksController < ApplicationController
 
   def set_feedback
     @feedback = Feedback.find(params[:id])
+  end
+
+  def check_auth_user
+    unless @feedback.user == current_user
+      flash[:alert] = 'Unauthorized access.'
+      redirect_to feedbacks_path
+    end
   end
 
   def feedback_params

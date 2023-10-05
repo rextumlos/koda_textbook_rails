@@ -53,6 +53,7 @@
           <th scope="col">From: [Email]</th>
           <th scope="col">Message</th>
           <th scope="col">Date sent</th>
+          <th scope="col">Remark</th>
           <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -63,11 +64,14 @@
             <td><%= feedback.email %></td>
             <td><%= truncate(feedback.message, length: 30, separator: " ") %></td>
             <td><%= feedback.created_at %></td>
+            <td><%= feedback.remark.name %></td>
             <td>
               <div class="d-flex flex-row justify-content-center">
                 <%= link_to 'Show', feedback_path(feedback), class: 'btn btn-sm btn-success me-2' %>
-                <%= link_to 'Edit', edit_feedback_path(feedback), class: 'btn btn-sm btn-primary me-2' %>
-                <%= button_to 'Delete', feedback_path(feedback), method: :delete, class: 'btn btn-sm btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+                <% if feedback.user == current_user %>
+                  <%= link_to 'Edit', edit_feedback_path(feedback), class: 'btn btn-sm btn-primary me-2' %>
+                  <%= button_to 'Delete', feedback_path(feedback), method: :delete, class: 'btn btn-sm btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+                <% end %>
               </div>
             </td>
           </tr>
