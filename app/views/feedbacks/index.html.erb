@@ -44,6 +44,10 @@
     </div>
   <% end %>
 
+  <div class="d-flex justify-content-center mb-2">
+    <%= paginate @feedbacks %>
+  </div>
+
   <div class="">
     <div class="card mb-3 d-flex flex-row ">
       <table class="table table-striped table-hover table-bordered table-sm table-responsive">
@@ -80,4 +84,9 @@
       </table>
     </div>
   </div>
+
+  <div class="d-flex justify-content-center mb-2">
+    <%= paginate @feedbacks %>
+  </div>
+
 </div>

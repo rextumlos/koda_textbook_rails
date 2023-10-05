@@ -4,7 +4,7 @@ class FeedbacksController < ApplicationController
   before_action :check_auth_user, only: [:edit, :update, :destroy]
 
   def index
-    @feedbacks = Feedback.all
+    @feedbacks = Feedback.includes(:user, :remark).all
     if params[:search].present?
       @feedbacks = @feedbacks.where('email LIKE :search OR message LIKE :search', search: "%#{params[:search]}%")
     end
@@ -20,6 +20,8 @@ class FeedbacksController < ApplicationController
       @feedbacks = @feedbacks.order(:id) if params[:sort] == "id"
       @feedbacks = @feedbacks.order(created_at: :desc) if params[:sort] == "created_at"
     end
+
+    @feedbacks = @feedbacks.page(params[:page]).per(20)
   end
 
   def show;
