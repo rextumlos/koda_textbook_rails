@@ -14,7 +14,7 @@
 
 # Create user
 3.times do |i|
-  User.create(email: "user#{i}@gmail.com", password: "password", password_confirmation: "password")
+  User.create(email: "user#{i}@gmail.com", name: Faker::Name.name, phone_number: Faker::PhoneNumber.phone_number, password: "password", password_confirmation: "password")
 end
 
 # Create categories
