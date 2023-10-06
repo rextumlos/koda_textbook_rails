@@ -1,5 +1,5 @@
 class FeedbacksController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
   before_action :check_auth_user, only: [:edit, :update, :destroy]
 

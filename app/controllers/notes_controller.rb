@@ -1,4 +1,5 @@
 class NotesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_feedback
   before_action :set_note,  only: [:edit, :update, :destroy]
 
