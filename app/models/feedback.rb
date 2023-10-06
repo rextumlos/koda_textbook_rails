@@ -1,6 +1,5 @@
 class Feedback < ApplicationRecord
   default_scope { where(deleted_at: nil) }
-  validates :email, presence: true, format: URI::MailTo::EMAIL_REGEXP
   validates :message, presence: true
 
   has_many :notes

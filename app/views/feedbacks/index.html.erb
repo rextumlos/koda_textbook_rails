@@ -65,7 +65,7 @@
         <% @feedbacks.each do |feedback| %>
           <tr>
             <th scope="row" class="text-center"><%= feedback.id %></th>
-            <td><%= feedback.email %></td>
+            <td><%= feedback.user.email %></td>
             <td><%= truncate(feedback.message, length: 30, separator: " ") %></td>
             <td><%= feedback.created_at %></td>
             <td><%= feedback.remark.name %></td>

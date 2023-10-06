@@ -16,7 +16,7 @@ class FeedbacksController < ApplicationController
     end
 
     if params[:sort].present?
-      @feedbacks = @feedbacks.order(:email) if params[:sort] == "email"
+      @feedbacks = @feedbacks.joins(:user).order(:email) if params[:sort] == "email"
       @feedbacks = @feedbacks.order(:id) if params[:sort] == "id"
       @feedbacks = @feedbacks.order(created_at: :desc) if params[:sort] == "created_at"
     end
