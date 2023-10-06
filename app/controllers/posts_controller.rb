@@ -47,7 +47,18 @@ class PostsController < ApplicationController
   end
 
   # Getting post by id
-  def show; end
+  def show
+    @comments = @post.comments.includes(:user)
+
+    @orders = %w[Ascending Descending]
+    if params[:order].present? and params[:order] == "Ascending"
+      @comments = @comments.order(created_at: :asc)
+    else
+      @comments = @comments.order(created_at: :desc)
+    end
+
+    @comments = @comments.page(params[:page]).per(5)
+  end
 
   # Initiate editing a post, /post/:id/edit
   def edit; end

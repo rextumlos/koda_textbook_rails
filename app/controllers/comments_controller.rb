@@ -1,20 +1,9 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!
   before_action :set_post
   before_action :set_comment, only: [:edit, :update, :destroy]
-
-  def index
-    @comments = @post.comments.includes(:user)
-
-    @orders = %w[Ascending Descending]
-    if params[:order].present? and params[:order] == "Ascending"
-        @comments = @comments.order(created_at: :asc)
-    else
-      @comments = @comments.order(created_at: :desc)
-    end
-
-    @comments = @comments.page(params[:page]).per(10)
-  end
+  before_action :check_auth_user, only: [:edit, :update]
+  before_action :check_post_owner, only: [:destroy]
 
   def new
     @comment = @post.comments.build
@@ -57,8 +46,17 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = @post.comments.find(params[:id])
+  end
 
+  def check_auth_user
     unless @comment.user == current_user
+      flash[:alert] = 'Unauthorized access.'
+      redirect_to post_comments_path(@post)
+    end
+  end
+
+  def check_post_owner
+    unless @comment.user == current_user || @post.user == current_user
       flash[:alert] = 'Unauthorized access.'
       redirect_to post_comments_path(@post)
     end
