@@ -12,6 +12,32 @@
   <div class="card mb-2">
     <div class="card-header d-flex flex-row justify-content-between">
       <p>Sent by: <%= @feedback.user.email %></p>
+      <div class="d-flex flex-row justify-content-center align-items-center">
+        <span class="me-2">Remark: <%= @feedback.remark.name %></span>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Set Remark
+          </button>
+          <%= form_with model: @feedback, method: :patch do |form|%>
+            <ul class="dropdown-menu">
+              <% @remarks.each do |remark| %>
+                <li>
+                  <div class="dropdown-item d-flex flex-row">
+                    <%= form.radio_button :remark_id, remark.id, checked: remark == @feedback.remark, checked_value: remark, class: "me-2" %>
+                    <%= form.label remark.name.humanize %>
+                  </div>
+                </li>
+              <% end %>
+              <li>
+                <div class="d-flex flex-row justify-content-center mt-2">
+                  <%= form.submit class:"btn btn-sm btn-primary" %>
+                </div>
+              </li>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+
     </div>
 
     <div class="card-body">
@@ -21,7 +47,6 @@
       <div class="line mb-2"></div>
       <div>
         <p>Time sent: <%= @feedback.created_at %></p>
-        <!-- TODO: Add edit remark button -->
       </div>
     </div>
   </div>

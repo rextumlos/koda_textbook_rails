@@ -5,7 +5,7 @@
   </header>
 
   <%= form_with url: feedbacks_path, method: :get, id: "filter-form", class: "form" do |form| %>
-    <div class="card d-flex flex-row justify-content-between align-items-center mb-2 px-2">
+    <div class="card d-flex flex-row justify-content-between align-items-center mb-2 p-2">
       <div class="d-flex flex-column justify-content-center">
         <span class="me-2">Filter from: </span>
         <div class="d-flex flex-row align-items-center">
@@ -43,10 +43,6 @@
 
     </div>
   <% end %>
-
-  <div class="d-flex justify-content-center mb-2">
-    <%= paginate @feedbacks %>
-  </div>
 
   <div class="">
     <div class="card mb-3 d-flex flex-row ">
