@@ -26,6 +26,7 @@ class FeedbacksController < ApplicationController
 
   def show;
     @notes = @feedback.notes.all
+    @remarks = Remark.all
   end
 
   def new
@@ -75,6 +76,6 @@ class FeedbacksController < ApplicationController
   end
 
   def feedback_params
-    params.require(:feedback).permit(:email, :message, :remark)
+    params.require(:feedback).permit(:email, :message, :remark_id)
   end
 end
