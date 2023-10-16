@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :feedbacks
+  has_many :catfacts
 
   validates :phone_number, presence: true
   validates :name, presence: true

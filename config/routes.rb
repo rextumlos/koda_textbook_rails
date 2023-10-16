@@ -20,5 +20,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :news, only: :index
+    resources :catfacts, only: :create
   end
 end
