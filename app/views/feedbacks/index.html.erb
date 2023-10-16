@@ -54,6 +54,7 @@
           <th scope="col">Message</th>
           <th scope="col">Date sent</th>
           <th scope="col">Remark</th>
+          <th scope="col" class="text-center">Notes</th>
           <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -65,6 +66,7 @@
             <td><%= truncate(feedback.message, length: 30, separator: " ") %></td>
             <td><%= feedback.created_at %></td>
             <td><%= feedback.remark.name %></td>
+            <td class="text-center"><%= feedback.notes_count %></td>
             <td>
               <div class="d-flex flex-row justify-content-center">
                 <%= link_to 'Show', feedback_path(feedback), class: 'btn btn-sm btn-success me-2' %>

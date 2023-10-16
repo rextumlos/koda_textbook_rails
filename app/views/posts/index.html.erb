@@ -70,6 +70,7 @@
               <%= link_to 'Edit', edit_post_path(post), class: "btn btn-primary me-3" %>
               <%= button_to 'Delete', post_path(post), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-primary me-3" %>
             <% end %>
+            <%= link_to "#{post.comments_count} #{"Comment".pluralize(post.comments_count)}", post_path(post), class: "btn btn-primary me-3" %>
             <%= link_to 'New Comment', new_post_comment_path(post), class: "btn btn-primary me-3" %>
           </div>
         </div>

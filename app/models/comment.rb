@@ -1,6 +1,6 @@
 class Comment < ApplicationRecord
   default_scope { where(deleted_at: nil) }
-  belongs_to :post
+  belongs_to :post, counter_cache: true
   belongs_to :user
 
   validates :content, presence: true

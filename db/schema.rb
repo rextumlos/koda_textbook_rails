@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_06_060353) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_16_042736) do
   create_table "categories", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_06_060353) do
     t.bigint "remark_id"
     t.datetime "deleted_at"
     t.bigint "user_id"
+    t.integer "notes_count"
     t.index ["remark_id"], name: "index_feedbacks_on_remark_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
@@ -65,6 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_06_060353) do
     t.datetime "deleted_at"
     t.boolean "published"
     t.bigint "user_id"
+    t.integer "comments_count"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
