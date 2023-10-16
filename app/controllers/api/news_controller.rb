@@ -17,5 +17,8 @@ class Api::NewsController < ApplicationController
     ipify_url = 'https://api.ipify.org/?format=json'
     @ipify_response = RestClient.get ipify_url
     @user_ip = JSON.parse(@ipify_response)['ip']
+
+    @catfact = Catfact.new
+    @catfacts = Catfact.includes(:user).all.order(created_at: :desc)
   end
 end
