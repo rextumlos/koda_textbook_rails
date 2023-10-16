@@ -1,4 +1,5 @@
 class Api::NewsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @categories = %w[business entertainment general health science sports technology]
     api_params = {
@@ -20,5 +21,9 @@ class Api::NewsController < ApplicationController
 
     @catfact = Catfact.new
     @catfacts = Catfact.includes(:user).all.order(created_at: :desc)
+
+    if params[:filter] == '1'
+      @catfacts = @catfacts.where(user: current_user)
+    end
   end
 end
