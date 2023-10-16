@@ -3,6 +3,8 @@ class FeedbacksController < ApplicationController
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
   before_action :check_auth_user, only: [:edit, :update, :destroy]
 
+  require 'csv'
+
   def index
     @feedbacks = Feedback.includes(:user, :remark).all
     if params[:search].present?
@@ -22,6 +24,28 @@ class FeedbacksController < ApplicationController
     end
 
     @feedbacks = @feedbacks.page(params[:page]).per(20)
+
+    respond_to do |format|
+      format.html
+      format.csv {
+        csv_string = CSV.generate do |csv|
+          csv << [
+            Feedback.human_attribute_name(:id), User.human_attribute_name(:email),
+            Feedback.human_attribute_name(:message), Feedback.human_attribute_name(:created_at),
+            Feedback.human_attribute_name(:remark)
+          ]
+
+          @feedbacks.each do |feedback|
+            csv << [
+              feedback.id, feedback.user&.email,
+              feedback.message, feedback.created_at,
+              feedback.remark&.name
+            ]
+          end
+        end
+        render plain: csv_string
+      }
+    end
   end
 
   def show;

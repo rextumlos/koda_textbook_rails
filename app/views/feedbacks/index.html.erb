@@ -38,7 +38,11 @@
       </div>
 
       <div>
-        <%= form.submit "Filter", class: "btn btn-primary justify-content-end" %>
+        <%= form.submit "Filter", class: "btn btn-primary" %>
+      </div>
+
+      <div>
+        <%= link_to 'Export to CSV', feedbacks_path(format: :csv, page: params[:page]), class: "btn btn-success justify-content-end" %>
       </div>
 
     </div>
