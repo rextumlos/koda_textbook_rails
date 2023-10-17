@@ -23,7 +23,11 @@ Rails.application.routes.draw do
     resources :catfacts, only: :create
 
     namespace :v1 do
-      resources :regions, only: [:index, :show], defaults: { format: :json }
+      resources :regions, only: [:index, :show], defaults: { format: :json } do
+        resources :provinces, only: :index, defaults: { format: :json }
+      end
+
+      resources :provinces, only: [:index, :show], defaults: { format: :json }
     end
   end
 end
