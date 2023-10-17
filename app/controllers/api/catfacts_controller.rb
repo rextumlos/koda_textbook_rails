@@ -2,13 +2,10 @@ class Api::CatfactsController < ApplicationController
   before_action :authenticate_user!
 
   def create
+    catfact_service = CatfactApiService.new
     @catfact = Catfact.new
     @catfact.user = current_user
-    catfact_url = 'https://catfact.ninja/fact'
-    @response = RestClient.get catfact_url
-    fact = JSON.parse(@response)['fact']
-
-    @catfact.fact = fact
+    @catfact.fact = catfact_service.fetch_catfact
 
     if @catfact.save
       flash[:notice] = 'Catfact created successfully'
