@@ -8,6 +8,9 @@ class Api::NewsController < ApplicationController
     ipify_service = IpifyApiService.new
     @user_ip = ipify_service.fetch_user_ip
 
+    ipinfo_service = IpinfoApiService.new(@user_ip)
+    @user_ip_info = ipinfo_service.fetch_ip_info
+
     @catfact = Catfact.new
     @catfacts = Catfact.includes(:user).all.order(created_at: :desc)
 

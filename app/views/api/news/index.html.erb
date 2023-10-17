@@ -1,7 +1,10 @@
 <div class="container">
   <div class="d-flex flex-row justify-content-between align-items-center border-bottom mb-2">
     <h1>API Tutorials</h1>
-    <span>IPIFY User IP: <%= @user_ip %></span>
+    <div class="d-flex flex-column align-items-end">
+      <span>IPIFY User IP: <%= @user_ip %></span>
+      <span>IPInfo User IP info: <%= @user_ip_info['city'] %>, <%= @user_ip_info['country'] %> | <%= @user_ip_info['timezone'] %></span>
+    </div>
   </div>
 
   <div class="d-flex flex-row">
