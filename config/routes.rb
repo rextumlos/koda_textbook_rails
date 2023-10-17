@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {registrations: "users/registrations"}
+  devise_for :users, controllers: { registrations: "users/registrations" }
   get 'feedbacks/new'
   root 'welcome#index'
 
@@ -21,5 +21,9 @@ Rails.application.routes.draw do
   namespace :api do
     resources :news, only: :index
     resources :catfacts, only: :create
+
+    namespace :v1 do
+      resources :regions, only: [:index, :show], defaults: { format: :json }
+    end
   end
 end
