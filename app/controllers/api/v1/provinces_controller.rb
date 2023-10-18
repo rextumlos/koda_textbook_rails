@@ -4,13 +4,13 @@ class Api::V1::ProvincesController < ApplicationController
     provinces = if region
                   region.provinces
                 else
-                  Address::Province.all
+                  Address::Province.includes(:region).all
                 end
-    render json: provinces
+    render json: provinces, each_serializer: ProvinceSerializer
   end
 
   def show
     province = Address::Province.find_by_id(params[:id])
-    render json: province
+    render json: province, serializer: ProvinceSerializer
   end
 end
