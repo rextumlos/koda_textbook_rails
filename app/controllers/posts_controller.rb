@@ -25,6 +25,8 @@ class PostsController < ApplicationController
     end
 
     @posts = @posts.page(params[:page]).per(10)
+
+    render json: @posts, each_serializer: PostSerializer
   end
 
   def new
