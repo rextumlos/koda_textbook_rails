@@ -53,7 +53,8 @@
     <%= form.label :address_barangays_id %>
     <%= form.collection_select :address_barangays_id,
                                [], nil, nil,
-                               { prompt: 'Please select barangay' } %>
+                               { prompt: 'Please select barangay' },
+                               data: { location_target: 'selectedBarangayId' } %>
   </div>
   <%= form.submit %>
 <% end %>

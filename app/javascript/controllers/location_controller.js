@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="location"
 export default class extends Controller {
-  static targets = ['selectedRegionId', 'selectedProvinceId', 'selectedCityId']
+  static targets = ['selectedRegionId', 'selectedProvinceId', 'selectedCityId', 'selectedBarangayId']
   fetchProvinces() {
     let provinceTarget = this.selectedProvinceIdTarget
     $(provinceTarget).empty()
@@ -44,6 +44,22 @@ export default class extends Controller {
   }
 
   fetchBarangays() {
-
+    let barangayTarget = this.selectedBarangayIdTarget
+    $(barangayTarget).empty()
+    console.log(this.selectedCityIdTarget)
+    $.ajax({
+      type: 'GET',
+      url: `/api/v1/cities/${this.selectedCityIdTarget.value}/barangays`,
+      dataType: 'json',
+      success: (response) => {
+        console.log(response)
+        $.each(response, function (index, record) {
+          let option = document.createElement('option')
+          option.value = record.id
+          option.text = record.name
+          barangayTarget.appendChild(option)
+        })
+      }
+    })
   }
 }
