@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :check_auth_user, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.includes(:categories, :user).all
+    @posts = Post.includes(:categories, :user, :region, :province, :city, :barangay).all
     @categories = Category.all
 
     category_names =  params.select { |k, v| v == "1"}.keys
@@ -97,6 +97,9 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :published, :image, category_ids: [])
+    params.require(:post).permit(:title, :content, :published,
+                                 :image, :address, :address_region,
+                                 :address_province, :address_city, :address_barangay,
+                                 category_ids: [])
   end
 end
