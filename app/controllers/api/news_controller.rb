@@ -20,6 +20,5 @@ class Api::NewsController < ApplicationController
 
     random_user_service = RandomUserService.new
     @random_user = random_user_service.fetch_random_user
-    p @random_user
   end
 end
