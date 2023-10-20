@@ -7,6 +7,6 @@ class RandomUserService
 
   def fetch_random_user
     @response = RestClient.get @url
-    JSON.parse(@response)["results"]
+    JSON.parse(@response)["results"][0]
   end
 end

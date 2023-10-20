@@ -17,5 +17,9 @@ class Api::NewsController < ApplicationController
     if params[:filter] == '1'
       @catfacts = @catfacts.where(user: current_user)
     end
+
+    random_user_service = RandomUserService.new
+    @random_user = random_user_service.fetch_random_user
+    p @random_user
   end
 end
