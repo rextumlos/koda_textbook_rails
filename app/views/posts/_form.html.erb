@@ -1,4 +1,4 @@
-<%= form_with model: post, data: { controller: :location } do |form| %>
+<%= form_with model: post, data: { controller: 'location select2' } do |form| %>
   <% if post.errors.any? %>
     <ul>
       <% post.errors.each do |error| %>
@@ -32,28 +32,28 @@
     <%= form.label :address_region_id %>
     <%= form.collection_select :address_region_id,
                                Address::Region.all, :id, :region_name,
-                               { prompt: 'Please select region' },
+                               { prompt: 'Please select region' }, class: 'select2',
                                data: { location_target: 'selectedRegionId', action: 'change->location#fetchProvinces'} %>
   </div>
   <div>
     <%= form.label :address_provinces_id %>
     <%= form.collection_select :address_provinces_id,
                                [], nil, nil,
-                               { prompt: 'Please select province' },
+                               { prompt: 'Please select province' }, class: 'select2',
                                data: { location_target: 'selectedProvinceId', action: 'change->location#fetchCities'} %>
   </div>
   <div>
     <%= form.label :address_cities_id %>
     <%= form.collection_select :address_cities_id,
                                [], nil, nil,
-                               { prompt: 'Please select city' },
+                               { prompt: 'Please select city' }, class: 'select2',
                                data: { location_target: 'selectedCityId', action: 'change->location#fetchBarangays'  } %>
   </div>
   <div>
     <%= form.label :address_barangays_id %>
     <%= form.collection_select :address_barangays_id,
                                [], nil, nil,
-                               { prompt: 'Please select barangay' },
+                               { prompt: 'Please select barangay' }, class: 'select2',
                                data: { location_target: 'selectedBarangayId' } %>
   </div>
   <%= form.submit %>
