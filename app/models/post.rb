@@ -15,6 +15,8 @@ class Post < ApplicationRecord
   belongs_to :barangay, class_name: 'Address::Barangay', foreign_key: 'address_barangay_id'
   mount_uploader :image, ImageUploader
 
+  enum status: { unpublished: 0, published: 1, archived: 2 }
+
   # Overrides the existing destroy
   # method from controller
   def destroy
