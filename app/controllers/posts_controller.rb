@@ -98,8 +98,8 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :content, :published,
-                                 :image, :address, :address_region,
-                                 :address_province, :address_city, :address_barangay,
+                                 :image, :address, :address_region_id,
+                                 :address_province_id, :address_city_id, :address_barangay_id,
                                  category_ids: [])
   end
 end

@@ -2,8 +2,15 @@
   <%= link_to 'Back to posts', posts_path, class: "btn btn-dark mt-2" %>
 
   <div class="card my-2">
-    <h5 class="card-header"><%= @post.title %></h5>
-    <%= image_tag @post.image.url, class:"card-img px-4 mb-2", style:"height: 600px; object-fit: cover" if @post.image.present? %>
+    <div class="card-header d-flex flex-row justify-content-between align-items-center">
+      <h5><%= @post.title %></h5>
+      <% if @post.barangay.present? && @post.city.present? && @post.province.present? && @post.region.present? %>
+        <small><i class="fa-solid fa-location-dot"></i> <%= @post.barangay.name %>, <%= @post.city.name %>
+          | <%= @post.province.name %>, <%= @post.region.name %></small>
+      <% end %>
+    </div>
+
+    <%= image_tag @post.image.url, class: "card-img px-4 mb-2", style: "height: 600px; object-fit: cover" if @post.image.present? %>
     <p class="p-2"><%= @post.content %></p>
   </div>
 

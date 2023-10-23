@@ -4,4 +4,5 @@ class Address::Region < ApplicationRecord
   validates :region_name, presence: true
 
   has_many :provinces
+  has_many :posts
 end
