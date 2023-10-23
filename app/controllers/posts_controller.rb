@@ -20,10 +20,6 @@ class PostsController < ApplicationController
 
     @posts = @posts.where(categories: { name: category_names}) if category_names.any?
 
-    if params[:filter].present?
-      @posts = @posts.where(published: true)
-    end
-
     @posts = @posts.page(params[:page]).per(10)
 
     # render json: @posts, each_serializer: PostSerializer

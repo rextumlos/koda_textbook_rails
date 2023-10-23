@@ -32,14 +32,6 @@
         </div>
       </div>
 
-      <div>
-        <span>Filter: </span>
-        <div>
-          <%= check_box_tag :filter, :published, params[:filter] %>
-          <%= label_tag 'Published' %> <i class="fa-solid fa-check me-2"></i>
-        </div>
-      </div>
-
       <%= submit_tag "Filter", class: "btn btn-primary" %>
     </div>
   <% end %>
@@ -49,9 +41,9 @@
       <div class="card mb-3">
         <div class="card-header d-flex flex-row justify-content-between">
           <div class="d-flex flex-row">
-            <% if post.published %>
-              <i class="fa-solid fa-check me-2"></i>
-            <% end %>
+            <%# if post.published %>
+<!--              <i class="fa-solid fa-check me-2"></i>-->
+            <%# end %>
             <p><%= post.user.email %> | <%= post.created_at.strftime('%a, %B %d, %Y | %I:%M %p') %></p>
           </div>
           <div>
