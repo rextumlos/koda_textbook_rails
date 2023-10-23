@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :feedbacks
   has_many :catfacts
 
+  enum genre: { client: 0, admin: 1}
+
   validates :phone_number, presence: true
   validates :name, presence: true
 end
