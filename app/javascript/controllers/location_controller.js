@@ -1,5 +1,12 @@
 import { Controller } from "@hotwired/stimulus"
 
+function setInitialDefaultValue(name, target) {
+  let option = document.createElement('option')
+  option.value = ""
+  option.text = `Please select ${name}`
+  target.appendChild(option)
+}
+
 // Connects to data-controller="location"
 export default class extends Controller {
   static targets = ['selectedRegionId', 'selectedProvinceId', 'selectedCityId', 'selectedBarangayId']
@@ -13,6 +20,7 @@ export default class extends Controller {
       dataType: 'json',
       success: (response) => {
         console.log(response)
+        setInitialDefaultValue('province', provinceTarget)
         $.each(response, function (index, record) {
           let option = document.createElement('option')
           option.value = record.id
@@ -33,6 +41,7 @@ export default class extends Controller {
       dataType: 'json',
       success: (response) => {
         console.log(response)
+        setInitialDefaultValue('city', cityTarget)
         $.each(response, function (index, record) {
           let option = document.createElement('option')
           option.value = record.id
@@ -46,13 +55,14 @@ export default class extends Controller {
   fetchBarangays() {
     let barangayTarget = this.selectedBarangayIdTarget
     $(barangayTarget).empty()
-    console.log(this.selectedCityIdTarget)
+
     $.ajax({
       type: 'GET',
       url: `/api/v1/cities/${this.selectedCityIdTarget.value}/barangays`,
       dataType: 'json',
       success: (response) => {
         console.log(response)
+        setInitialDefaultValue('barangay', barangayTarget)
         $.each(response, function (index, record) {
           let option = document.createElement('option')
           option.value = record.id
