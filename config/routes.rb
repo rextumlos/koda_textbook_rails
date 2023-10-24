@@ -6,26 +6,26 @@ Rails.application.routes.draw do
   get '/about', to: 'welcome#about'
   get '/contact', to: 'welcome#contact'
 
-  resources :feedbacks do
-    resources :notes, except: [:index, :show]
+  constraints(ClientDomainConstraint.new) do
+    resources :feedbacks do
+      resources :notes, except: [:index, :show]
+    end
+
+    resources :posts do
+      resources :comments, except: [:index, :show]
+    end
+
+    namespace :user do
+      resources :posts, only: :index
+    end
   end
 
-  resources :posts do
-    resources :comments, except: [:index, :show]
-  end
-
-  # resources :categories, except: :show
-  #
-  # resources :remarks, except: :show
-
-  namespace :user do
-    resources :posts, only: :index
-  end
-
-  namespace :admin do
-    resources :users, only: :index
-    resources :categories, except: :show
-    resources :remarks, except: :show
+  constraints(AdminDomainConstraint.new) do
+    namespace :admin do
+      resources :users, only: :index
+      resources :categories, except: :show
+      resources :remarks, except: :show
+    end
   end
 
   namespace :api do
