@@ -18,6 +18,10 @@ Rails.application.routes.draw do
 
   resources :remarks, except: :show
 
+  namespace :user do
+    resources :posts, only: :index
+  end
+
   namespace :api do
     resources :news, only: :index
     resources :catfacts, only: :create
