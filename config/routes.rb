@@ -14,16 +14,18 @@ Rails.application.routes.draw do
     resources :comments, except: [:index, :show]
   end
 
-  resources :categories, except: :show
-
-  resources :remarks, except: :show
+  # resources :categories, except: :show
+  #
+  # resources :remarks, except: :show
 
   namespace :user do
     resources :posts, only: :index
   end
 
   namespace :admin do
-    resources :users
+    resources :users, only: :index
+    resources :categories, except: :show
+    resources :remarks, except: :show
   end
 
   namespace :api do

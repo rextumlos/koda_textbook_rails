@@ -1,5 +1,5 @@
 
-<%= form_with model: remark do |form| %>
+<%= form_with model: remark, url: path do |form| %>
   <% if remark.errors.any? %>
     <ul>
       <% remark.errors.each do |error| %>

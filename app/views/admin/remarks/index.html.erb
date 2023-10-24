@@ -1,7 +1,7 @@
 <div class="container">
   <div class="d-flex flex-row justify-content-between align-items-center my-2">
     <h2>Remarks</h2>
-    <%= link_to 'Add new remark', new_remark_path, class: "btn btn-primary" %>
+    <%= link_to 'Add new remark', new_admin_remark_path, class: "btn btn-primary" %>
   </div>
 
   <% @remarks.each do |remark| %>
@@ -15,8 +15,8 @@
       <div class="card-body d-flex flex-row justify-content-between align-items-center">
         <h5 class="card-title"><%= remark.name %></h5>
         <div class="d-flex flex-row">
-          <%= link_to 'Edit', edit_remark_path(remark), class: "btn btn-primary me-3" %>
-          <%= button_to 'Delete', remark_path(remark), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-primary me-3" %>
+          <%= link_to 'Edit', edit_admin_remark_path(remark), class: "btn btn-primary me-3" %>
+          <%= button_to 'Delete', admin_remark_path(remark), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-primary me-3" %>
         </div>
       </div>
     </div>

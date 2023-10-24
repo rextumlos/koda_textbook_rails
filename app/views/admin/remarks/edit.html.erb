@@ -1,4 +1,4 @@
 <div class="container">
   <h1>Edit Remark</h1>
-  <%= render partial: 'form', locals: {remark: @remark} %>
+  <%= render partial: 'form', locals: {remark: @remark, path: admin_remark_path(@remark)} %>
 </div>
