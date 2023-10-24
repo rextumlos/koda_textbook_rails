@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   # Does this action before actually doing the main method indicated in only:
   before_action :set_category, only: [:edit, :update, :destroy]
+  before_action :check_admin
 
   # @index, displays all categories
   def index
@@ -60,6 +61,10 @@ class CategoriesController < ApplicationController
   # parameters required
   def category_params
     params.require(:category).permit(:name)
+  end
+
+  def check_admin
+    raise ActionController::RoutingError.new('Not Found') unless current_user.admin?
   end
 
 end

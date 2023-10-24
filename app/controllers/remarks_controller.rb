@@ -1,5 +1,6 @@
 class RemarksController < ApplicationController
   before_action :set_remark, only: [:edit, :update, :destroy]
+  before_action :check_admin
 
   def index
     @remarks = Remark.all
@@ -47,5 +48,9 @@ class RemarksController < ApplicationController
 
   def remark_params
     params.require(:remark).permit(:name)
+  end
+
+  def check_admin
+    raise ActionController::RoutingError.new('Not Found') unless current_user.admin?
   end
 end
