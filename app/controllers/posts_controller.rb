@@ -64,32 +64,26 @@ class PostsController < ApplicationController
   # Updating a post
   def update
     if params[:commit] == "Set as unpublished"
-      @post.status = "unpublished"
-      if @post.save
+      if @post.unpublished!
         flash[:notice] = 'Post successfully unpublished'
-        redirect_to user_posts_path
       else
         flash.now[:alert] = 'Post unpublished failed'
-        redirect_to user_posts_path
       end
+      redirect_to user_posts_path
     elsif params[:commit] == "Set as published"
-      @post.status = "published"
-      if @post.save
+      if @post.published!
         flash[:notice] = 'Post successfully published'
-        redirect_to user_posts_path
       else
         flash.now[:alert] = 'Post publish failed'
-        redirect_to user_posts_path
       end
+      redirect_to user_posts_path
     elsif params[:commit] == "Set as archived"
-      @post.status = "archived"
-      if @post.save
+      if @post.archived!
         flash[:notice] = 'Post successfully archived'
-        redirect_to user_posts_path
       else
         flash.now[:alert] = 'Post archive failed'
-        redirect_to user_posts_path
       end
+      redirect_to user_posts_path
     else
       if @post.update(post_params)
         flash[:notice] = 'Post updated successfully'
