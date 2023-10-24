@@ -1,0 +1,60 @@
+<div class="container mb-2" style="max-width: 50em">
+  <h1>My Posts</h1>
+  <div class="solid_line mb-2"></div>
+  <div class="">
+    <% @posts.each do |post| %>
+      <div class="card mb-3">
+        <div class="card-header d-flex flex-row justify-content-between">
+          <div class="d-flex flex-row">
+            <span><%= post.user.email %> | <%= post.created_at.strftime('%a, %B %d, %Y | %I:%M %p') %></span>
+          </div>
+          <div class="d-flex flex-row">
+            <div class="me-2">
+              <% post.categories.pluck(:name).each do |category| %>
+                <span class="badge bg-secondary"><%= category %></span>
+              <% end %>
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <%= form_with model: post, method: :put, url: post_path(post) do |form| %>
+                    <%= form.submit 'Set as unpublished', class: "dropdown-item #{"disabled" if post.unpublished?}" %>
+                  <% end %>
+                </li>
+                <li>
+                  <%= form_with model: post, method: :put, url: post_path(post) do |form| %>
+                    <%= form.submit 'Set as published', class: "dropdown-item #{"disabled" if post.published?}" %>
+                  <% end %>
+                </li>
+                <li>
+                  <%= form_with model: post, method: :put, url: post_path(post) do |form| %>
+                    <%= form.submit 'Set as archived', class: "dropdown-item #{"disabled" if post.archived?}" %>
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-body">
+          <%= image_tag post.image.url, class: "card-img px-4 mb-2", style: "height: 400px; object-fit: cover" if post.image.present? %>
+          <h5 class="card-title"><%= post.title %></h5>
+          <p class="card-text"><%= post.content %></p>
+          <div class="d-flex flex-row">
+            <%= link_to 'Show', post_path(post), class: "btn btn-sm btn-primary me-3" %>
+            <%= link_to 'Edit', edit_post_path(post), class: "btn btn-sm btn-primary me-3" %>
+            <%= button_to 'Delete', post_path(post), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-primary me-3" %>
+            <%= link_to "#{post.comments_count} #{"Comment".pluralize(post.comments_count)}", post_path(post), class: "btn btn-sm btn-primary me-3" %>
+            <%= link_to 'New Comment', new_post_comment_path(post), class: "btn btn-sm btn-primary me-3" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="d-flex justify-content-center p-2">
+    <%= paginate @posts %>
+  </div>
+</div>
