@@ -51,7 +51,14 @@
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><%= link_to 'My Posts', user_posts_path, class: "dropdown-item text-end" %></li>
-<!--            <li class="border-bottom" style="height: 1em"></li>-->
+
+            <% if current_user.admin? %>
+              <li class="border-bottom" style="height: 1rem"></li>
+              <li><%= link_to 'Admin: Users', admin_users_path, class: "dropdown-item text-end" %></li>
+              <li><%= link_to 'Admin: Remarks', remarks_path, class: "dropdown-item text-end" %></li>
+              <li><%= link_to 'Admin: Categories', categories_path, class: "dropdown-item text-end" %></li>
+              <li class="border-bottom" style="height: 1rem"></li>
+            <% end %>
             <li><%= link_to 'Sign out', destroy_user_session_path, class: "dropdown-item text-end", data: { 'turbo-method': :delete } %></li>
           </ul>
         </div>

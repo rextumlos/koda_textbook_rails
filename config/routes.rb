@@ -22,6 +22,10 @@ Rails.application.routes.draw do
     resources :posts, only: :index
   end
 
+  namespace :admin do
+    resources :users
+  end
+
   namespace :api do
     resources :news, only: :index
     resources :catfacts, only: :create
