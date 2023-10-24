@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :check_auth_user, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.includes(:categories, :user, :region, :province, :city, :barangay).all
+    @posts = Post.published.includes(:categories, :user, :region, :province, :city, :barangay)
     @categories = Category.all
 
     category_names =  params.select { |k, v| v == "1"}.keys
