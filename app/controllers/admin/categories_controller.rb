@@ -1,4 +1,4 @@
-class CategoriesController < ApplicationController
+class Admin::CategoriesController < ApplicationController
   # Does this action before actually doing the main method indicated in only:
   before_action :set_category, only: [:edit, :update, :destroy]
   before_action :check_admin
@@ -18,7 +18,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
     if @category.save
       flash[:notice] = "Category created successfully"
-      redirect_to categories_path
+      redirect_to admin_categories_path
     else
       render :new
     end
@@ -31,7 +31,7 @@ class CategoriesController < ApplicationController
   def update
     if @category.update(category_params)
       flash[:notice] = "Category updated successfully"
-      redirect_to categories_path
+      redirect_to admin_categories_path
     else
       render :edit
     end
@@ -39,16 +39,13 @@ class CategoriesController < ApplicationController
 
   # deleting a category
   def destroy
-    # @category.destroy
-    # flash[:notice] = "Category deleted successfully"
-
     if @category.destroy
       flash[:notice] = "Category deleted successfully"
     else
       flash[:alert] = @category.errors.full_messages.join(', ')
     end
 
-    redirect_to posts_path
+    redirect_to admin_categories_path
   end
 
   private
