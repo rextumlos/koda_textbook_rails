@@ -37,3 +37,4 @@
 /node_modules
 .env
 .dockerignore
+/config/domain.yml
