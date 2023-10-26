@@ -1,0 +1,14 @@
+zh-CN:
+  hello: "您好, %{name}"
+  post_list: 活動清單
+  sort_by: 排序方式
+  title: 标题
+  recent: 最近的
+  category: 类别
+  create_new_post: 创建新帖子
+  filter: 筛选
+  show: 展示
+  edit: 编辑
+  delete: 删除
+  comments: 评论
+  new_comment: 新评论

@@ -47,11 +47,22 @@
       <% if user_signed_in? %>
         <div class="btn-group">
           <button class="btn btn-black dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-            <span><i class="fa-solid fa-user"></i> <%= current_user.email %></span>
+            <span><i class="fa-solid fa-user"></i> <%= t( 'hello', name: current_user.email) %></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><%= link_to 'My Posts', user_posts_path, class: "dropdown-item text-end" %></li>
-
+            <li class="dropdown-item d-flex justify-content-end">
+              <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                  Language
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
+                  <li><%= link_to 'EN', params.permit!.merge(locale: 'en'), class:"dropdown-item text-end" %></li>
+                  <li><%= link_to 'zh-CN', params.permit!.merge(locale: 'zh-CN'), class:"dropdown-item text-end" %></li>
+                  <li><%= link_to 'ph-TL', params.permit!.merge(locale: 'ph-TL'), class:"dropdown-item text-end" %></li>
+                </ul>
+              </div>
+            </li>
             <% if current_user.admin? %>
               <li class="border-bottom" style="height: 1rem"></li>
               <li><%= link_to 'Admin: Users', admin_users_path, class: "dropdown-item text-end" %></li>

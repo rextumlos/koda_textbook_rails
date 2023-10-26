@@ -1,0 +1,14 @@
+ph-TL:
+  hello: "Magandang araw, %{name}"
+  post_list: Listahan ng Post
+  sort_by: Pagbukud-bukurin ayon sa
+  title: Pamagat
+  recent: Kamakailan
+  category: Kategorya
+  create_new_post: Gumawa ng Bagong Post
+  filter: Salain
+  show: Ipakita
+  edit: I-edit
+  delete: Tanggalin
+  comments: Mga komento
+  new_comment: Lumikha ng Bagong komento

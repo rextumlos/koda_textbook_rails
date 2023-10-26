@@ -30,4 +30,16 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  hello: "Hello, %{name}"
+  post_list: Post List
+  sort_by: "Sort by"
+  title: "Title"
+  recent: "Recent"
+  category: "Category"
+  create_new_post: "Create New Post"
+  filter: "Filter"
+  show: "Show"
+  edit: "Edit"
+  delete: "Delete"
+  comments: "Comments"
+  new_comment: "New comment"

@@ -1,27 +1,27 @@
 <div class="container mb-2">
   <header class="m-2 d-flex flex-row justify-content-between align-items-center">
-    <h1>Post List</h1>
-    <%= link_to 'Create New Post', new_post_path, class: 'btn btn-primary h-100' %>
+    <h1><%= t('post_list') %></h1>
+    <%= link_to "#{t('create_new_post')}", new_post_path, class: 'btn btn-primary h-100' %>
   </header>
 
   <%= form_tag posts_path, method: "get", id: "filter_form", class: "card mb-3", data: { turbo: false } do %>
     <div class="main_filter">
       <div>
-        <span>Sort by: </span>
+        <span><%= t('sort_by') %>: </span>
         <div class="d-flex flex-row">
           <div class="pe-2">
             <%= radio_button_tag :sort, :title, params[:sort] == "title" %>
-            <%= label_tag "Title" %>
+            <%= label_tag "#{t('title')}" %>
           </div>
           <div>
             <%= radio_button_tag :sort, :created_at, params[:sort] == "created_at" %>
-            <%= label_tag "Recent" %>
+            <%= label_tag "#{t('recent')}" %>
           </div>
         </div>
       </div>
 
       <div>
-        <span>Category: </span>
+        <span><%= t('category') %>: </span>
         <div id="category_filter" class="d-flex flex-row">
           <% @categories.each do |category| %>
             <div class="pe-2">
@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <%= submit_tag "Filter", class: "btn btn-primary" %>
+      <%= submit_tag "#{t('filter')}", class: "btn btn-primary" %>
     </div>
   <% end %>
 
@@ -41,9 +41,6 @@
       <div class="card mb-3">
         <div class="card-header d-flex flex-row justify-content-between">
           <div class="d-flex flex-row">
-            <%# if post.published %>
-<!--              <i class="fa-solid fa-check me-2"></i>-->
-            <%# end %>
             <p><%= post.user.email %> | <%= post.created_at.strftime('%a, %B %d, %Y | %I:%M %p') %></p>
           </div>
           <div>
@@ -58,13 +55,13 @@
           <h5 class="card-title"><%= post.title %></h5>
           <p class="card-text"><%= post.content %></p>
           <div class="d-flex flex-row">
-            <%= link_to 'Show', post_path(post), class: "btn btn-primary me-3" %>
+            <%= link_to "#{t('show')}", post_path(post), class: "btn btn-primary me-3" %>
             <% if current_user == post.user %>
-              <%= link_to 'Edit', edit_post_path(post), class: "btn btn-primary me-3" %>
-              <%= button_to 'Delete', post_path(post), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-primary me-3" %>
+              <%= link_to "#{t('edit')}", edit_post_path(post), class: "btn btn-primary me-3" %>
+              <%= button_to "#{t('delete')}", post_path(post), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-primary me-3" %>
             <% end %>
-            <%= link_to "#{post.comments_count} #{"Comment".pluralize(post.comments_count)}", post_path(post), class: "btn btn-primary me-3" %>
-            <%= link_to 'New Comment', new_post_comment_path(post), class: "btn btn-primary me-3" %>
+            <%= link_to "#{post.comments_count} #{"#{t('comments')}".pluralize(post.comments_count)}", post_path(post), class: "btn btn-primary me-3" %>
+            <%= link_to "#{t('new_comment')}", new_post_comment_path(post), class: "btn btn-primary me-3" %>
           </div>
         </div>
       </div>
